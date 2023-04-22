@@ -9,9 +9,10 @@ Suggested Tibia versions: 7.1 until 7.7
 Soon more information about, how to use, roadmap, and how to contribute.
 
 # Funcions:
-- Targeting: :warning:
 - Mana Trainer: :warning:
-- Looting: :hammer:
+- Targeting: :warning:
+- Walker: :hammer:
+- Waypoint Recorder: :hammer:
 
 # Project status code description: 
 - Done: :heavy_check_mark:
