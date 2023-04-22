@@ -11,8 +11,9 @@ Soon more information about, how to use, roadmap, and how to contribute.
 # Funcions:
 - Mana Trainer: :warning:
 - Targeting: :warning:
-- Walker: :hammer:
-- Waypoint Recorder: :hammer:
+- Walker: :warning:
+- Waypoint Recorder: :warning:
+- Looting: :hammer:
 
 # Project status code description: 
 - Done: :heavy_check_mark:
