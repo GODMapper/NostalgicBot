@@ -1,3 +1,4 @@
+# Welcome to NostalgicBot #
 import pyautogui
 import pathlib
 import time
@@ -10,6 +11,7 @@ pyautogui.PAUSE = 0
 pyautogui.FAILSAFE = False
 
 
+#TODO add separate file just for paths
 # Paths
 currentPath = pathlib.Path(__file__).parent.resolve()
 monstersPath = f'{currentPath}/src/images/monsters/'
@@ -17,7 +19,7 @@ barsPath = f'{currentPath}/src/images/bars/'
 containersPath = f'{currentPath}/src/images/containers/'
 lootsPath = f'{currentPath}/src/images/loots/'
 
-
+#TODO Add separate file just for cordinates
 # Coordinates
 #left, top, width, height
 gameWindow = 1680, 0, 1920, 1080
@@ -58,19 +60,12 @@ def getTarget():
         pyautogui.moveTo(3333, 475)
         print("Attacking.")
 
-# Under deployment
-def getLoot():
-    goldCoin = pyautogui.locateOnScreen(f"{lootsPath}gold.png", region=backpackWindow)
-    print(goldCoin)
-
 # Starting bot
 def main():
     try:
         while True:
             getTarget()
             manaTrainer()
-            # Under Deployment
-            # getLoot()
             time.sleep(1)
             continue
     except KeyboardInterrupt:
