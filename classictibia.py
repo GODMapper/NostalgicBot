@@ -3,7 +3,7 @@ import pathlib
 import time
 
 
-# Set pyautogui functions to zero delay
+# Set pyautogui functions to zero delay isabelle
 pyautogui.PAUSE = 0
 
 # Disable the pyautogui failsafe 
@@ -32,6 +32,7 @@ backpackWindow = 3425, 542, 175, 215
 def manaTrainer():
     mana = pyautogui.locateOnScreen(f"{barsPath}mana.png", region=barsWindow)
     if mana is not None:
+        # TODO Not necessary anymore fix 
         pyautogui.moveTo(3333, 475)
         time.sleep(1)
         pyautogui.click(3333, 475)
@@ -66,10 +67,10 @@ def getLoot():
 def main():
     try:
         while True:
-            # getTarget()
-            # manaTrainer()
+            getTarget()
+            manaTrainer()
             # Under Deployment
-            getLoot()
+            # getLoot()
             time.sleep(1)
             continue
     except KeyboardInterrupt:
