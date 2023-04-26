@@ -1,6 +1,6 @@
 # NostalgicBot
 
-> A simple Python pixelbot design for classic Tibia versions.
+> A simple Python pixelbot developed for classic Tibia versions.
 
 Project Status: Under development. :construction: 
 
