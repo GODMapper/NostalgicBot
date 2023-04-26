@@ -1,6 +1,7 @@
 # record.py is used to record waypoints
 # Insert - Get photo of flag
 # Page Up - Get the coordinates of waypoint
+# More information about how to create your own waypoints soon!
 
 import pyautogui
 from pynput.keyboard import Listener
@@ -14,7 +15,6 @@ def create_folder(folder_name):
     if not os.path.isdir(folder_name):
         os.mkdir(folder_name)
 
-
 class Recorder:
     def __init__(self):
         self.count = 0
@@ -27,10 +27,8 @@ class Recorder:
         path = f'{targetName}/flag_{self.count}.png'
         screenshot.save(path)
         self.count = self.count +1
-        #TODO remove blink is not necessary
         infos = {
             "path": path,
-            "blink": [],
             "wait": 0,
             "start": None
         }
@@ -44,13 +42,6 @@ class Recorder:
             last_coordinates["wait"] = time.time() - last_coordinates["start"]
             del last_coordinates["start"]
 
-   #TODO remove blink is not necessary
-    def blink_position(self):
-        x, y = pyautogui.position()
-        last_coordinates = self.coordinates[-1]
-        last_coordinates["blink"] = [x, y]
-        print(last_coordinates)
-        
     def key_code(self, key):
         print(key)
         if key == keyboard.Key.esc:
@@ -59,9 +50,6 @@ class Recorder:
             return False
         if key == keyboard.Key.insert:
             self.photo()
-        #TODO remove blink not necessay
-        if key == keyboard.Key.home:
-            self.blink_position()
         if key == keyboard.Key.page_up:
             self.tick()
 
