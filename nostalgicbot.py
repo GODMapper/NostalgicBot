@@ -25,23 +25,21 @@ class Walker:
         while True:
             swampTroll = pyautogui.locateOnScreen(f"{monstersPath}swamptroll.png", confidence=0.8, region=battleWindow)
             swampTrollTargeted = pyautogui.locateOnScreen(f"{monstersPath}swamptrolltargeted.png", confidence=0.8, region=battleWindow)
-            if swampTroll is not None or swampTrollTargeted is not None:
+            if swampTroll or swampTrollTargeted:
                 print("Tem swamp na tela, aguardando...")
                 sleep(5)
             else:
                 print("Sem swamp na tela, indo para o waypoint...")
-                for i in range(10):
-                    flag_position = pyautogui.locateOnScreen(item['path'], confidence=0.7, region=miniMap)
-                    if flag_position is None:
-                        print("Flag não encontrada na tela")
-                        sleep(1)
-                        return
-                    else:
-                        print("Flag encontrada")
-                        self.actions.move_and_click(flag_position)
-                        pyautogui.moveTo(3333, 475)
-                        sleep(item['wait'])
-                        return
+                flag_position = pyautogui.locateOnScreen(item['path'], confidence=0.7, region=miniMap)
+                if flag_position:
+                    print("Flag encontrada")
+                    self.actions.move_and_click(flag_position)
+                    pyautogui.moveTo(3333, 475)
+                    sleep(item['wait'])
+                else:
+                    print("Flag não encontrada na tela. Aguardando..")
+                    sleep(1)
+                    return
 
     def start_route(self):
         while self.isStarted:
@@ -53,9 +51,9 @@ class Walker:
         while self.isStarted:
             swampTroll = pyautogui.locateOnScreen(f"{monstersPath}swamptroll.png", confidence=0.8, region=battleWindow)
             swampTrollTargeted = pyautogui.locateOnScreen(f"{monstersPath}swamptrolltargeted.png", confidence=0.8, region=battleWindow)
-            if swampTrollTargeted is not None:
+            if swampTrollTargeted:
                 sleep(1)
-            elif swampTroll is not None:
+            elif swampTroll:
                 xSwamp, ySwamp = pyautogui.center(swampTroll)
                 pyautogui.moveTo(xSwamp, ySwamp)
                 pyautogui.click(xSwamp, ySwamp)
@@ -64,21 +62,30 @@ class Walker:
     def manaTrainer(self):
         while self.isStarted:
             mana = pyautogui.locateOnScreen(f"{barsPath}mana.png", region=barsWindow)
-            if mana is not None:
+            if mana:
                 pyautogui.moveTo(3333, 475)
                 sleep(1)
                 pyautogui.click(3333, 475)
                 sleep(1)
                 pyautogui.press('f1')
                 sleep(1)
-                
+
+    def eatFood(self):
+        while True:
+            food = pyautogui.locateOnScreen(f"{lootsPath}fish.png", region=lootWindow)
+            if food:
+                xFood, yFood = pyautogui.center(food)
+                pyautogui.moveTo(xFood, yFood)
+                pyautogui.rightClick(xFood, yFood)
+                pyautogui.moveTo(3333, 475)
+    
     def target_key(self,key):
         print(key)
         if key == keyboard.Key.esc:
             print("Bot Stopped.")
             return False
         if key == keyboard.Key.delete:
-            print("Walker Started.")
+            print("Walker ON.")
             threading.Thread(target=self.start_route).start()
         if key == keyboard.Key.end:
             print("Targetting ON")
@@ -86,6 +93,9 @@ class Walker:
         if key == keyboard.Key.page_down:
             print("Mana Trainer ON")
             threading.Thread(target=self.manaTrainer).start()
+        if key == keyboard.Key.insert:
+            print("EatFood ON")
+            threading.Thread(target=self.eatFood).start()
 
     def start_keyboard(self):
         with Listener(on_press=self.target_key) as listener:
